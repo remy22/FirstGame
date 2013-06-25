@@ -37,7 +37,10 @@ namespace MyGame
 			for(int i=(int)Math.Abs(Math.Ceiling(Hspeed));i>0;i--)
 			{
 				if (checkMove(new Vector2(i*Math.Sign(Hspeed),0),getNearbyEnts())==null)
+				{
 					Pos+=new Vector2(i*Math.Sign(Hspeed),0)*(float)gameTime.ElapsedGameTime.TotalSeconds;
+					//Console.WriteLine(new Vector2(i*Math.Sign(Hspeed),0)*(float)gameTime.ElapsedGameTime.TotalSeconds);
+				}
 			}
 
 			for(int i=(int)Math.Abs(Math.Ceiling(Vspeed));i>0;i--)
@@ -45,7 +48,6 @@ namespace MyGame
 				if (checkMove(new Vector2(0,i*Math.Sign(Vspeed)),getNearbyEnts())==null)
 					Pos+=new Vector2(0,i*Math.Sign(Vspeed))*(float)gameTime.ElapsedGameTime.TotalSeconds;
 			}
-			Console.WriteLine("NOT STUCK");
 		}
 
 		public void getInput()
@@ -63,19 +65,25 @@ namespace MyGame
 
 			if (keyState.IsKeyDown(Keys.A))
 			{
-				Hspeed=-80;
+				Hspeed=-20;
 				state=State.Walking;
 			}
 			else
 			if (keyState.IsKeyDown(Keys.D))
 			{
-				Hspeed=80;
+				Hspeed=20;
 				state=State.Walking;
 			}
 			else
 			{
 				Hspeed=0;
 				state=State.Idle;
+			}
+
+			if (keyState.IsKeyDown(Keys.Space))
+			{
+				Console.WriteLine(Bbox.Origin);
+				Console.WriteLine(Pos);
 			}
 		}
 

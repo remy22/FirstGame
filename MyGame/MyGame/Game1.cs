@@ -33,6 +33,7 @@ namespace MyGame
 			player=new Player("faceSheet",new Vector2(200,100),32,32,0,this);
 			level=new Level(this.GraphicsDevice.Viewport.Width,this.GraphicsDevice.Viewport.Height,32,32);
 			level.add(new Wall("wall",new Vector2(300,200),32,32,0,this));
+			level.add(new Wall("wall",new Vector2(300,100),32,32,0,this));
 
 			base.Initialize();
 		}
