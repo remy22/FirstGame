@@ -26,7 +26,7 @@ namespace MyGame
 
 			Vspeed=0;
 			Hspeed=0;
-			maxVspeed=(float)frameHeight;
+			maxVspeed=(float)frameHeight*2;
 
 			Grav=0;
 			Fric=0;

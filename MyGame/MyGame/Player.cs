@@ -37,8 +37,11 @@ namespace MyGame
 					Pos+=new Vector2(0,1);
 				}
 				state=State.Jumping;
-				Grav=.02f;
+				Grav=.03f;
 			}
+			else
+			if (Vspeed>=0)
+				Vspeed=0;
 			getInput();
 
 			for(int i=(int)Math.Abs(Math.Ceiling(Hspeed));i>0;i--)
@@ -69,7 +72,7 @@ namespace MyGame
 			{
 				if (state!=State.Jumping)
 				{
-					Vspeed=-25;
+					Vspeed=-35;
 					state=State.Jumping;
 				}
 			}

@@ -54,6 +54,7 @@ namespace MyGame
 			getRowFrames();
 		}
 
+		//
 		public void update(GameTime gameTime)
 		{
 			timer+=gameTime.ElapsedGameTime.TotalSeconds;
@@ -74,6 +75,7 @@ namespace MyGame
 			drawRegion=getDrawArea();
 		}
 
+		//Draw current drawing region to the screen
 		public void draw(SpriteBatch sBatch)
 		{
 			sBatch.Draw(Tex,Pos,drawRegion,Color.White);
@@ -100,7 +102,7 @@ namespace MyGame
 			{
 				for(int j=0;j<cols;j++)
 				{
-					extracted=new Rectangle((j*frameWidth)+(j*offset)+offset,(i*frameHeight)+(i*offset)+offset,frameWidth,frameHeight);
+					extracted=new Rectangle((j*frameWidth)+((j+1)*offset),(i*frameHeight)+((i+1)*offset),frameWidth,frameHeight);
 					Tex.GetData<Color>(0,extracted,rawColor,0,frameWidth*frameHeight);
 
 					if (checkFilled(rawColor,i,j))
@@ -123,14 +125,14 @@ namespace MyGame
 					return(false);
 				}
 			}
-			Console.WriteLine("Found blank at row " + row + " and column " + col);
+
 			return(true);
 		}
 
 		public Rectangle getDrawArea()
 		{
-			int x=(currentFrame*frameWidth)+(currentFrame*offset)+offset;
-			int y=(CurrentRow*frameHeight)+(CurrentRow*offset)+offset;
+			int x=(currentFrame*frameWidth)+((currentFrame+1)*offset);
+			int y=(CurrentRow*frameHeight)+((CurrentRow+1)*offset);
 
 			return(new Rectangle(x,y,frameWidth,frameHeight));
 		}

@@ -50,12 +50,15 @@ namespace MyGame
 
 		public Entity checkCol(Vector2 loc,Entity obj)
 		{
+			//Don't even bother if passed a null value.
 			if (obj==null)
 				return null;
 
+			//Remember the hitbox's coords.
 			int tempX=hitbox.X;
 			int tempY=hitbox.Y;
 
+			//Modify the hitbox's coords
 			hitbox.X=(int)loc.X;
 			hitbox.Y=(int)loc.Y;
 

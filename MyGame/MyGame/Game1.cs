@@ -20,8 +20,9 @@ namespace MyGame
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 
-		//Player mySprite;
 		Player player;
+		LevelBuilder builder;
+
 		public Game1()
 		{
 			graphics = new GraphicsDeviceManager(this);
@@ -39,7 +40,7 @@ namespace MyGame
 			level.add(new Wall("wall", new Vector2(232,200), 32, 32, 0, this));
 			level.add(new Wall("wall", new Vector2(264, 200), 32, 32, 0, this));
 			level.add(new Wall("wall",new Vector2(296,168),32,32,0,this));
-
+			//builder=new LevelBuilder(this);
 			base.Initialize();
 		}
 
@@ -48,6 +49,7 @@ namespace MyGame
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 			level.loadContent(this.Content);
 			player.loadContent(this.Content);
+			//builder.loadContent(this.Content);
 		}
 
 		protected override void UnloadContent()
@@ -60,8 +62,8 @@ namespace MyGame
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
 				this.Exit();
 			
-			//mySprite.update(gameTime);
 			player.update(gameTime);
+			//builder.update();
 			base.Update(gameTime);
 		}
 
@@ -70,9 +72,9 @@ namespace MyGame
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
 			spriteBatch.Begin();
-			//mySprite.draw(spriteBatch);
 			player.draw(spriteBatch);
 			level.draw(spriteBatch);
+			//builder.draw(spriteBatch);
 			spriteBatch.End();
 
 			base.Draw(gameTime);
