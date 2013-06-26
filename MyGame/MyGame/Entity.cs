@@ -61,12 +61,12 @@ namespace MyGame
 		{
 			if (Grav!=0)
 			{
-				if (Vspeed<maxVspeed)
-				{
-					Vspeed+=(Grav*maxVspeed)+(Grav*Vspeed);
-				}
+				Vspeed+=(Grav*maxVspeed);
+				if (Vspeed>maxVspeed)
+					Vspeed=maxVspeed;
 				else
-				Vspeed=maxVspeed;
+				if (Math.Abs(Vspeed)>maxVspeed)
+					Vspeed=maxVspeed*-1;
 			}
 		}
 

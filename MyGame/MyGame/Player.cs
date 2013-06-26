@@ -28,26 +28,37 @@ namespace MyGame
 		{
 			base.update(gameTime);
 			state=State.Idle;
-			getInput();
-			if (checkMove(new Vector2(0,5),getNearbyEnts())==null)
+			Grav=0;
+			if (checkMove(new Vector2(0,1),currentGame.level.Tiles)==null)
 			{
+				if (checkMove(new Vector2(0,-1),currentGame.level.Tiles)!=null)
+				{
+					Vspeed=0;
+					Pos+=new Vector2(0,1);
+				}
 				state=State.Jumping;
+				Grav=.02f;
 			}
+			getInput();
 
 			for(int i=(int)Math.Abs(Math.Ceiling(Hspeed));i>0;i--)
 			{
-				if (checkMove(new Vector2(i*Math.Sign(Hspeed),0),getNearbyEnts())==null)
+				Vector2 mov = new Vector2(i*Math.Sign(Hspeed),0)*(float)gameTime.ElapsedGameTime.TotalSeconds;
+				if (checkMove(mov,currentGame.level.Tiles)==null)
 				{
-					Pos+=new Vector2(i*Math.Sign(Hspeed),0)*(float)gameTime.ElapsedGameTime.TotalSeconds;
-					//Console.WriteLine(new Vector2(i*Math.Sign(Hspeed),0)*(float)gameTime.ElapsedGameTime.TotalSeconds);
+					Pos+=mov;
 				}
 			}
 
 			for(int i=(int)Math.Abs(Math.Ceiling(Vspeed));i>0;i--)
 			{
-				if (checkMove(new Vector2(0,i*Math.Sign(Vspeed)),getNearbyEnts())==null)
-					Pos+=new Vector2(0,i*Math.Sign(Vspeed))*(float)gameTime.ElapsedGameTime.TotalSeconds;
+				Vector2 mov=new Vector2(0,i*Math.Sign(Vspeed))*(float)gameTime.ElapsedGameTime.TotalSeconds;
+				if (checkMove(mov,currentGame.level.Tiles)==null)
+				{
+					Pos+=mov;
+				}
 			}
+			Console.WriteLine(state);
 		}
 
 		public void getInput()
@@ -58,7 +69,7 @@ namespace MyGame
 			{
 				if (state!=State.Jumping)
 				{
-					Vspeed=-120;
+					Vspeed=-25;
 					state=State.Jumping;
 				}
 			}
@@ -66,18 +77,21 @@ namespace MyGame
 			if (keyState.IsKeyDown(Keys.A))
 			{
 				Hspeed=-20;
-				state=State.Walking;
+				if (state!=State.Jumping)
+					state=State.Walking;
 			}
 			else
 			if (keyState.IsKeyDown(Keys.D))
 			{
 				Hspeed=20;
-				state=State.Walking;
+				if (state!=State.Jumping)
+					state=State.Walking;
 			}
 			else
 			{
 				Hspeed=0;
-				state=State.Idle;
+				if (state!=State.Jumping)
+					state=State.Idle;
 			}
 
 			if (keyState.IsKeyDown(Keys.Space))
@@ -98,11 +112,6 @@ namespace MyGame
 				}
 			}
 			return(null);
-		}
-
-		public Entity[] getNearbyEnts()
-		{
-			return(currentGame.level.getArea((int)Pos.X-(4*frameWidth),(int)Pos.Y-(4*frameHeight),frameWidth*9,frameHeight*9));
 		}
 	}
 }

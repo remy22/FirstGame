@@ -26,14 +26,19 @@ namespace MyGame
 		{
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
+
+			IsFixedTimeStep=false;
 		}
 
 		protected override void Initialize()
 		{
 			player=new Player("faceSheet",new Vector2(200,100),32,32,0,this);
-			level=new Level(this.GraphicsDevice.Viewport.Width,this.GraphicsDevice.Viewport.Height,32,32);
-			level.add(new Wall("wall",new Vector2(300,200),32,32,0,this));
+			level=new Level();
+			level.add(new Wall("wall",new Vector2(200,200),32,32,0,this));
 			level.add(new Wall("wall",new Vector2(300,100),32,32,0,this));
+			level.add(new Wall("wall", new Vector2(232,200), 32, 32, 0, this));
+			level.add(new Wall("wall", new Vector2(264, 200), 32, 32, 0, this));
+			level.add(new Wall("wall",new Vector2(296,168),32,32,0,this));
 
 			base.Initialize();
 		}

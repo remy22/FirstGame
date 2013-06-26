@@ -17,7 +17,7 @@ namespace MyGame
 		private int currentFrame;
 		protected int CurrentRow{get;set;}
 		protected double FrameRate{get;set;}
-		private double prevTime;
+		private double timer;
 		private int[] rowFrames;
 		private string asset;
 		private Rectangle drawRegion;
@@ -50,25 +50,20 @@ namespace MyGame
 			
 			width=Tex.Width;
 			height=Tex.Height;
-			prevTime=-4.0;
 			drawRegion = new Rectangle(0, 0, frameWidth, frameHeight);
 			getRowFrames();
 		}
 
 		public void update(GameTime gameTime)
 		{
-			if (prevTime==-4.0)
-			{
-				prevTime=gameTime.TotalGameTime.TotalSeconds;
-			}
-
-			if (gameTime.TotalGameTime.TotalSeconds-prevTime>=FrameRate)
+			timer+=gameTime.ElapsedGameTime.TotalSeconds;
+			if (timer>=FrameRate)
 			{
 				if (++currentFrame>=rowFrames[CurrentRow])
 				{
 					currentFrame=0;
 				}
-				prevTime=gameTime.TotalGameTime.TotalSeconds;
+				timer=0;
 			}
 
 			if (frameWidth==width && frameHeight==height)
